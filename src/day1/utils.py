@@ -1,17 +1,23 @@
+"""Day 1 utils for Advent of Code."""
+
 def read_file() -> list[str]:
+    """Reads the input file and returns a list of strings."""
     with open("./input.txt") as f:
         return f.read().splitlines()
 
 def parse_move(move: str) -> tuple[int, int]:
+    """Parses a move string and returns a tuple containing the direction and distance."""
     direction = -1 if move[0] == 'L' else 1
     distance = int(move[1:])
     return direction, distance
 
 def execute_move(position: int, direction:int, distance: int) -> int:
+    """Executes a move and returns the new position."""
     position += direction * distance
     return position
 
 def compute_wrapped(position: int, start_at_zero: bool) -> tuple[int, int]:
+    """Computes the wrapped position and the number of times wrapped."""
     if position >= 100:
         # If >= 100, we can simply count the hundreds for the number of times around
         num_wrapped = position // 100

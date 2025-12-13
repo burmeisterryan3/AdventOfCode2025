@@ -1,12 +1,15 @@
+"""Day 1 Tests."""
 from src.day1.utils import parse_move, execute_move, compute_wrapped
 
 def test_parse_move():
+    """Test the parse_move function."""
     assert parse_move("L10") == (-1, 10)
     assert parse_move("R5") == (1, 5)
     assert parse_move("R1000") == (1, 1000)
     assert parse_move("L352") == (-1, 352)
 
 def test_execute_move():
+    """Test the execute_move function."""
     assert execute_move(50, -1, 10) == 40
     assert execute_move(50, -1, 68) == -18
     assert execute_move(82, -1, 30) == 52
@@ -22,6 +25,7 @@ def test_execute_move():
     assert execute_move(50, -1, 1000) == -950
 
 def test_compute_wrapped():
+    """Test the compute_wrapped function."""
     assert compute_wrapped(40, False) == (40, 0)
     assert compute_wrapped(-18, False) == (82, 1)
     assert compute_wrapped(52, False) == (52, 0)
