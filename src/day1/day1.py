@@ -8,10 +8,10 @@ def main():
 
     wrapped = 0
     for move in moves:
+        start_at_zero = position == 0
         direction, distance = parse_move(move)
-        was_zero = position == 0
         position = execute_move(position, direction, distance)
-        position, num_wrapped = compute_wrapped(position, was_zero)
+        position, num_wrapped = compute_wrapped(position, start_at_zero)
         wrapped += num_wrapped
 
     print(f"Number of times position wrapped: {wrapped}")

@@ -11,13 +11,23 @@ def execute_move(position: int, direction:int, distance: int) -> int:
     position += direction * distance
     return position
 
-def compute_wrapped(position: int, was_zero: bool) -> tuple[int, int]:
-    if position >= 100: 
-        return position % 100, position // 100
+def compute_wrapped(position: int, start_at_zero: bool) -> tuple[int, int]:
+    if position >= 100:
+        # If >= 100, we can simply count the hundreds for the number of times around
+        num_wrapped = position // 100
     elif position < 0:
-        if was_zero:
-            return position % 100, abs(position // 100 + 1)
+        if start_at_zero and position % 100 != 0:
+            # If we start at zero and don't land on a multiple of 100, add one to the floor to ensure we don't count the initial zero
+            num_wrapped = abs(position // 100 + 1)
+        elif position % 100 == 0:
+            # If we land on multiple of 100, add one to account for the floor logic
+            # e.g., 4 -> -200 = 3 passes of 0, -200 // 100 = 2 + 1 (for passing 0)
+            num_wrapped = abs(position // 100) + 1
         else:
-            return position % 100, abs(position // 100)
+            # If we start at zero and don't land on a multiple of 100, the floor will account for passing 0
+            # e.g., 4 -> -201 = 3 passes of 0, -201 // 100 = 3
+            num_wrapped = abs(position // 100)
     else:
-        return position, int(position == 0)
+        num_wrapped = int(position == 0)
+    
+    return position % 100, num_wrapped
